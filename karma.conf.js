@@ -1,5 +1,5 @@
 // Karma configuration
-// Generated on Fri Oct 13 2017 13:38:37 GMT-0700 (PDT)
+// Generated on Fri Oct 13 2017 16:26:57 GMT-0700 (PDT)
 
 module.exports = function(config) {
   config.set({
@@ -16,7 +16,7 @@ module.exports = function(config) {
     // list of files / patterns to load in the browser
     files: [
       'js/*.js',
-      'spec/*-spec.js',
+      'spec/*-spec.js'
     ],
 
 
@@ -31,6 +31,7 @@ module.exports = function(config) {
       'js/*.js': [ 'browserify'],
       'spec/*.js': ['browserify'],
     },
+
     plugins: [
       'karma-jquery',
       'karma-browserify',
@@ -39,6 +40,10 @@ module.exports = function(config) {
       'karma-jasmine-html-reporter'
     ],
 
+    browserify: {
+      debug: true,
+      transform: [ [ 'babelify', {presets: ["es2015"]} ] ]
+    },
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
