@@ -1,5 +1,5 @@
 // Karma configuration
-// Generated on Fri Oct 13 2017 10:01:08 GMT-0700 (PDT)
+// Generated on Fri Oct 13 2017 13:38:37 GMT-0700 (PDT)
 
 module.exports = function(config) {
   config.set({
@@ -31,7 +31,6 @@ module.exports = function(config) {
       'js/*.js': [ 'browserify'],
       'spec/*.js': ['browserify'],
     },
-
     plugins: [
       'karma-jquery',
       'karma-browserify',
@@ -39,10 +38,6 @@ module.exports = function(config) {
       'karma-chrome-launcher',
       'karma-jasmine-html-reporter'
     ],
-    browserify: {
-      debug: true,
-      transform: [ [ 'babelify', {presets: ["es2015"]} ] ]
-    },
 
     // test results reporter to use
     // possible values: 'dots', 'progress'

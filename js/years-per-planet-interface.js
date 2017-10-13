@@ -1,12 +1,9 @@
-
 $(document).ready(function() {
   $('#years-per-planet-form').submit(function(event) {
     event.preventDefault();
-    var DayOfBirthParts = $('#dateOfBirth').val().split('-');
-    var dateOfBirth = new Date(DayOfBirthParts[], month[, date[, hours[, minutes[, seconds[, milliseconds]]]]])
-    var currentDate = Math.floor(Date.now());
-    var dif = currentDate - dateOfBirth
+    var dateOfBirth = $('#dateOfBirth').val();
+    var timePeriod = new TimeDifference(dateOfBirth);
     var ar = dateOfBirth.split("-")
-    $('#result').append("<li>'hello:  '" + dif + currentDate + dateOfBirth + "--------" + ar[0] +"</li> ");
+    $('#result').append(`<p>You entered ${dateOfBirth}. That's ${timePeriod.earthYears()} Earth years, ${timePeriod.mercuryYears()} years on Mercury, ${timePeriod.venusYears()} years on Venus, ${timePeriod.marsYears()} years on Mars, ${timePeriod.jupiterYears()} years on Jupiter.</p>`);
   });
 });
