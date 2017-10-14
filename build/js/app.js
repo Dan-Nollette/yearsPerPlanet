@@ -13,16 +13,22 @@ $(document).ready(function () {
   $('#years-per-planet-form').submit(function (event) {
     event.preventDefault();
     var dateOfBirth = $('#dateOfBirth').val();
-    var timePeriod = new TimeDifference(dateOfBirth);
+    var lifeExpectancy = $('#lifeExpectancy').val();
+    var timePeriod = new TimeDifference(dateOfBirth, lifeExpectancy);
     var ar = dateOfBirth.split("-");
-    $('#result').append('<p>You entered ' + dateOfBirth + '. That\'s ' + timePeriod.earthYears() + ' Earth years, ' + timePeriod.mercuryYears() + ' years on Mercury, ' + timePeriod.venusYears() + ' years on Venus, ' + timePeriod.marsYears() + ' years on Mars, ' + timePeriod.jupiterYears() + ' years on Jupiter.</p>');
+    var earthAge = timePeriod.earthYears();
+    $('#result').append('<p>You entered ' + dateOfBirth + '. That\'s ' + earthAge + ' Earth years, ' + timePeriod.mercuryYears(earthAge) + ' years on Mercury, ' + timePeriod.venusYears(earthAge) + ' years on Venus, ' + timePeriod.marsYears(earthAge) + ' years on Mars, ' + timePeriod.jupiterYears(earthAge) + ' years on Jupiter.</p><p>Given your life expectancy you can expectancy you can expect to live ' + (lifeExpectancy - earthAge) + ' Earth years, ' + timePeriod.mercuryYears(lifeExpectancy - earthAge) + ' Mercury years, ' + timePeriod.venusYears(lifeExpectancy - earthAge) + ' Venus years, ' + timePeriod.marsYears(lifeExpectancy - earthAge) + ' Mars years, ' + timePeriod.jupiterYears(lifeExpectancy - earthAge) + ' Jupiter years.</p>');
+    if (earthAge > lifeExpectancy) {
+      $('#result').append("<p>Negative life expectancy? Uh-oh... Don't worry about it too much. I ate some expired cream corn the other day, and it was almost palatable</p>");
+    }
   });
 });
 
 var TimeDifference = exports.TimeDifference = function () {
-  function TimeDifference(dateOfBirth) {
+  function TimeDifference(dateOfBirth, lifeExpectancy) {
     _classCallCheck(this, TimeDifference);
 
+    this.lifeExpectancy = lifeExpectancy;
     var dobArrary = dateOfBirth.split('-');
     var dob = new Date([dobArrary[0], dobArrary[1], dobArrary[2]]);
     var dobNum = Math.floor(dob);
@@ -37,23 +43,23 @@ var TimeDifference = exports.TimeDifference = function () {
     }
   }, {
     key: 'mercuryYears',
-    value: function mercuryYears() {
-      return this.earthYears() / .24;
+    value: function mercuryYears(earthYears) {
+      return earthYears / .24;
     }
   }, {
     key: 'venusYears',
-    value: function venusYears() {
-      return this.earthYears() / .62;
+    value: function venusYears(earthYears) {
+      return earthYears / .62;
     }
   }, {
     key: 'marsYears',
-    value: function marsYears() {
-      return this.earthYears() / 1.88;
+    value: function marsYears(earthYears) {
+      return earthYears / 1.88;
     }
   }, {
     key: 'jupiterYears',
-    value: function jupiterYears() {
-      return this.earthYears() / 11.86;
+    value: function jupiterYears(earthYears) {
+      return earthYears / 11.86;
     }
   }]);
 

@@ -12,6 +12,7 @@ _An app that accepts a birthday and outputs the age of a person born at that tim
 
 * _Open the terminal and navigate to the place where you would like to store the project._
 * _Run_ `git clone https://github.com/Dan-Nollette/yearsPerPlanet`
+* _run_ `npm install`
 * _run_ `gulp build`
 * _run_ `open index.html`
 ## Known Bugs

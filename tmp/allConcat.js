@@ -1,18 +1,24 @@
 $(document).ready(function() {
   $('#years-per-planet-form').submit(function(event) {
     event.preventDefault();
-    var dateOfBirth = $('#dateOfBirth').val();
-    var timePeriod = new TimeDifference(dateOfBirth);
-    var ar = dateOfBirth.split("-")
-    $('#result').append(`<p>You entered ${dateOfBirth}. That's ${timePeriod.earthYears()} Earth years, ${timePeriod.mercuryYears()} years on Mercury, ${timePeriod.venusYears()} years on Venus, ${timePeriod.marsYears()} years on Mars, ${timePeriod.jupiterYears()} years on Jupiter.</p>`);
+    let dateOfBirth = $('#dateOfBirth').val();
+    let lifeExpectancy = $('#lifeExpectancy').val();
+    let timePeriod = new TimeDifference(dateOfBirth, lifeExpectancy);
+    let ar = dateOfBirth.split("-")
+    let earthAge = timePeriod.earthYears();
+    $('#result').append(`<p>You entered ${dateOfBirth}. That's ${earthAge} Earth years, ${timePeriod.mercuryYears(earthAge)} years on Mercury, ${timePeriod.venusYears(earthAge)} years on Venus, ${timePeriod.marsYears(earthAge)} years on Mars, ${timePeriod.jupiterYears(earthAge)} years on Jupiter.</p><p>Given your life expectancy you can expectancy you can expect to live ${lifeExpectancy - earthAge} Earth years, ${timePeriod.mercuryYears(lifeExpectancy - earthAge)} Mercury years, ${timePeriod.venusYears(lifeExpectancy - earthAge)} Venus years, ${timePeriod.marsYears(lifeExpectancy - earthAge)} Mars years, ${timePeriod.jupiterYears(lifeExpectancy - earthAge)} Jupiter years.</p>`);
+    if (earthAge > lifeExpectancy) {
+      $('#result').append("<p>Negative life expectancy? Uh-oh... Don't worry about it too much. I ate some expired cream corn the other day, and it was almost palatable</p>");
+    }
   });
 });
 
 export class TimeDifference {
-  constructor(dateOfBirth) {
-    let dobArrary = dateOfBirth.split('-');
-    let dob = new Date([dobArrary[0], dobArrary[1], dobArrary[2]]);
-    let dobNum = Math.floor(dob);
+  constructor(dateOfBirth, lifeExpectancy) {
+    this.lifeExpectancy = lifeExpectancy;
+    const dobArrary = dateOfBirth.split('-');
+    const dob = new Date([dobArrary[0], dobArrary[1], dobArrary[2]]);
+    const dobNum = Math.floor(dob);
     this.present = Math.floor(Date.now());
     this.differenceInSeconds = (this.present - dobNum)
   }
@@ -21,19 +27,19 @@ export class TimeDifference {
     return (this.differenceInSeconds/ 31557600000)  ;
   }
 
-  mercuryYears() {
-    return this.earthYears() /.24
+  mercuryYears(earthYears) {
+    return earthYears /.24
   }
 
-  venusYears() {
-    return this.earthYears() /.62
+  venusYears(earthYears) {
+    return earthYears /.62
   }
 
-  marsYears() {
-    return this.earthYears() /1.88
+  marsYears(earthYears) {
+    return earthYears /1.88
   }
 
-  jupiterYears() {
-    return this.earthYears() /11.86
+  jupiterYears(earthYears) {
+    return earthYears /11.86
   }
 }
