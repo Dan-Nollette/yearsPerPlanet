@@ -1,7 +1,7 @@
 export class TimeDifference {
   constructor(dateOfBirth) {
-    let dobArrary = dateOfBirth.split('-');
-    let dob = new Date([dobArrary[0], dobArrary[1], dobArrary[2]]);
+    const dobArrary = dateOfBirth.split('-');
+    const dob = new Date([dobArrary[0], dobArrary[1], dobArrary[2]]);
     let dobNum = Math.floor(dob);
     this.present = Math.floor(Date.now());
     this.differenceInSeconds = (this.present - dobNum)

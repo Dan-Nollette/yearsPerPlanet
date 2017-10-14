@@ -26,8 +26,8 @@ var TimeDifference = exports.TimeDifference = function () {
     var dobArrary = dateOfBirth.split('-');
     var dob = new Date([dobArrary[0], dobArrary[1], dobArrary[2]]);
     var dobNum = Math.floor(dob);
-    var present = Math.floor(Date.now());
-    this.differenceInSeconds = present - dobNum;
+    this.present = Math.floor(Date.now());
+    this.differenceInSeconds = this.present - dobNum;
   }
 
   _createClass(TimeDifference, [{

@@ -13,8 +13,8 @@ export class TimeDifference {
     let dobArrary = dateOfBirth.split('-');
     let dob = new Date([dobArrary[0], dobArrary[1], dobArrary[2]]);
     let dobNum = Math.floor(dob);
-    let present = Math.floor(Date.now());
-    this.differenceInSeconds = (present - dobNum)
+    this.present = Math.floor(Date.now());
+    this.differenceInSeconds = (this.present - dobNum)
   }
 
   earthYears() {
